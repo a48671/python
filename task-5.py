@@ -6,7 +6,7 @@ def list_to_sum(array):
             state['isContinue'] = False
             break
         else:
-            state['total'] = state['total'] + float(item)
+            state['total'] = state['total'] + int(item)
 
 while state['isContinue']:
     array = input('Input numbers: ').split()
