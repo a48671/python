@@ -12,7 +12,16 @@ def fact(n):
         state *= item
         yield state
 
+fact1 = fact(5)
+
 for el in fact(5):
     print(el)
 
 print('test: ', factorial(5))
+
+# Это я так, чтобы поаробовать функцию next
+fact_test = fact(3)
+print(next(fact_test))
+print(next(fact_test))
+print(next(fact_test))
+
