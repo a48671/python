@@ -13,7 +13,7 @@ def flat(array: list) -> list:
         for i, el in enumerate(array_from_stack):
             if type(el) == list:
                 flatted_array = el + [array_from_stack[a] for a in range(i + 1, len(array_from_stack))]
-                task_stack.append(flatted_array)
+                task_stack.append(lambda: flatting(flatted_array))
                 break
             else:
                 new_array.append(el)
@@ -23,11 +23,11 @@ def flat(array: list) -> list:
         item = array[index]
 
         if len(task_stack) > 0:
-            current_item = task_stack.pop(0)
-            flatting(current_item)
+            task = task_stack.pop(0)
+            task()
             continue
         elif type(item) == list:
-            task_stack.append(item)
+            flatting(item)
             index += 1
             continue
         else:
