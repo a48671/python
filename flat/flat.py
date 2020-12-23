@@ -28,12 +28,10 @@ def flat(array: list) -> list:
             continue
         elif type(item) == list:
             flatting(item)
-            index += 1
-            continue
         else:
             new_array.append(item)
-            index += 1
-            continue
+
+        index += 1
 
     return new_array
 
