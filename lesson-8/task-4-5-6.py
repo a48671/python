@@ -6,11 +6,33 @@
 
 class Store:
 
-    def add_item(self, item: dict) -> None:
+    def add_item(self, item: dict, quantity: int) -> None:
+        if not isinstance(quantity, int):
+            print('quantity not a number')
+            return
+
         if hasattr(self, item.type):
-            getattr(self, item.type).append(item)
+            for index in range(quantity):
+                getattr(self, item.type).append(item)
         else:
-            setattr(self, item.type, [item])
+            for index in range(quantity):
+                if index == 0:
+                    setattr(self, item.type, [item])
+                else:
+                    getattr(self, item.type).append(item)
+
+
+    def get_quantity_all(self):
+        count = 0
+        for item in self.__dict__:
+            count += len(getattr(self, item))
+        return count
+
+    def get_quantity_by_type(self, equipment_type: str):
+        if hasattr(self, equipment_type):
+            return len(getattr(self, equipment_type))
+        else:
+            return 0
 
 
 class Equipment:
@@ -64,11 +86,14 @@ print(xerox_hp)
 
 store = Store()
 
-store.add_item(printer_hp)
-store.add_item(printer_epson)
-store.add_item(scanner_hp)
-store.add_item(xerox_hp)
+store.add_item(printer_hp, 2)
+store.add_item(printer_epson, 1)
+store.add_item(scanner_hp, 10)
+store.add_item(xerox_hp, 3)
 
-print(store.printer)
-print(store.scanner)
-print(store.xerox)
+print('all equipment: ', store.get_quantity_all())
+print('printers: ', store.get_quantity_by_type('printer'))
+print('scanners: ', store.get_quantity_by_type('scanner'))
+print('xerox: ', store.get_quantity_by_type('xerox'))
+print('abracadabra: ', store.get_quantity_by_type('abracadabra'))
+
