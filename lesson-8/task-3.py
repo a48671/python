@@ -11,6 +11,7 @@
 
 from ast import literal_eval
 
+
 class ErrorNorOnlyNumber(Exception):
 
     def __init__(self, txt):
